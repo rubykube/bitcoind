@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for arg in $@
+do
+  creds=(`rpcuser.py $arg | grep '^[^ ]*$'`)
+
+  echo "${creds[0]}"
+  echo "${creds[0]}" >> $HOME/.bitcoin/bitcoin.conf
+  echo "rpcpassword=${creds[1]}"
+  echo "rpcpassword=${creds[1]}" >> $HOME/.bitcoin/bitcoin.conf
+  echo "$arg ${creds[1]}"
+  echo "$arg ${creds[1]}" >> /tmp/users.txt
+done
+
